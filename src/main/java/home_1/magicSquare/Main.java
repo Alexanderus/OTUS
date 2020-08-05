@@ -1,4 +1,4 @@
-package magicSquare;
+package home_1.magicSquare;
 
 public class Main {
     public static void main(String[] args) {
