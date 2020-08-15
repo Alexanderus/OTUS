@@ -1,7 +1,7 @@
 package home_1.luckyTic;
 
-import java.math.BigInteger;
+import java.util.Optional;
 
 public interface LuckyTickets {
-    BigInteger getLuckyTickets(int n);
+    Optional<Long> getLuckyTickets(int n);
 }
