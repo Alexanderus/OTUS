@@ -1,36 +1,38 @@
 package home_1.luckyTic;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class LuckyTicketsImpl implements LuckyTickets {
 
-    public BigInteger getLuckyTickets(int n) {
-        if (n < 0 || 11 < n)
-            return null;
+    public Optional<Long> getLuckyTickets(int n) {
+        if (n < 0 || 11 < n) {
+            return Optional.empty();
+        }
 
-        List<BigInteger> numbers = new ArrayList<>(9*n + 1);
-        for (int i=0; i<9*n +1; i++)
-            numbers.add(i, BigInteger.valueOf(0));
+        List<Long> sumOfAnyNumbers = new ArrayList<>(9 * n + 1);
+        for (int i = 0; i < 9 * n + 1; i++) {
+            sumOfAnyNumbers.add(i, 0L);
+        }
 
-        BigInteger count = BigInteger.valueOf(0);
+        long fullMatches = 0L;
 
-        summ(0, n, numbers);
+        findMatchesPerSumOfNumbers(0, n, sumOfAnyNumbers);
 
-        for (int i = 0; i < 9*n+1; i++)
-            count = count.add(numbers.get(i).multiply(numbers.get(i)));
+        for (Long numbersSum : sumOfAnyNumbers) {
+            fullMatches = fullMatches + numbersSum * numbersSum;
+        }
 
-        return count;
+        return Optional.of(fullMatches);
     }
 
-    private void summ(Integer index, Integer n, List<BigInteger> numbers) {
-        for (int i=0; i<10; i++) {
+    private void findMatchesPerSumOfNumbers(Integer index, Integer n, List<Long> numbers) {
+        for (int i = 0; i < 10; i++) {
             if (n > 1) {
-                summ(index + i, n - 1, numbers);
-            }
-            else {
-                numbers.set(index + i, numbers.get(index + i).add(BigInteger.valueOf(1)));
+                findMatchesPerSumOfNumbers(index + i, n - 1, numbers);
+            } else {
+                numbers.set(index + i, numbers.get(index + i) + 1);
             }
         }
     }
