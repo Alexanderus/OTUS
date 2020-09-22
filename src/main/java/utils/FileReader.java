@@ -11,10 +11,11 @@ import java.util.stream.Stream;
 
 public class FileReader {
 
-    public List<Path> getTestData(String path, String postfix) {
+    public static List<Path> getTestFiles(String pathToFolder, String postfix) {
         List<Path> inPaths = null;
-        try (Stream<Path> paths = Files.walk(Paths.get(ClassLoader.getSystemResource(path).toURI()))) {
+        try (Stream<Path> paths = Files.walk(Paths.get(ClassLoader.getSystemClassLoader().getResource(pathToFolder).toURI()))) {
             inPaths = paths
+                    .sorted()
                     .filter(Files::isRegularFile)
                     .filter(e -> e.toString().endsWith(postfix))
                     .collect(Collectors.toList());
@@ -22,5 +23,14 @@ public class FileReader {
             e.printStackTrace();
         }
         return inPaths;
+    }
+
+    public static String getTestData(Path pathToTest) {
+        try {
+            return Files.readString(pathToTest);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return "";
+        }
     }
 }

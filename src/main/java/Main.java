@@ -1,6 +1,7 @@
 import home_1.luckyTic.LuckyTicketsImpl;
 import utils.FileReader;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,13 +16,13 @@ public class Main {
     }
 
     public static void runLuckyTicketsTests() throws IOException {
-        final String ticketsTestsPath = "\\HomeWork\\1\\Tickets";
+        final String ticketsTestsPath = File.separator + "HomeWork" + File.separator + "1" + File.separator + "Tickets";
 
 
         FileReader fileReader = new FileReader();
 
-        List<Path> inTestData = fileReader.getTestData(ticketsTestsPath, "in");
-        List<Path> outTestData = fileReader.getTestData(ticketsTestsPath, "out");
+        List<Path> inTestData = fileReader.getTestFiles(ticketsTestsPath, "in");
+        List<Path> outTestData = fileReader.getTestFiles(ticketsTestsPath, "out");
 
         System.out.println("Тестирование программы \"Счастливый билет\":");
 
@@ -54,8 +55,8 @@ public class Main {
         final String stringTestsPath = "\\HomeWork\\1\\String";
         FileReader fileReader = new FileReader();
 
-        List<Path> inTestData = fileReader.getTestData(stringTestsPath, "in");
-        List<Path> outTestData = fileReader.getTestData(stringTestsPath, "out");
+        List<Path> inTestData = fileReader.getTestFiles(stringTestsPath, "in");
+        List<Path> outTestData = fileReader.getTestFiles(stringTestsPath, "out");
 
         System.out.println("Тестирование программы \"Длинна строки\":");
         for (int i = 0; i < inTestData.size(); i++) {
