@@ -26,7 +26,7 @@ public class TestSystem<T> {
 
     public void checkResults() {
         for (int i = 0; i < resultData.size(); i++) {
-            System.out.println(String.format("Ожидаемый результат теста %s. Полученный %s.",
+            System.out.println(String.format("Ожидаемый результат теста %s. \n Полученный %s.\n\n\n",
                     resultData.getTestResult(i), resultData.getActualResult(i).get().toString()
             ));
         }

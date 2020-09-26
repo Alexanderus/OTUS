@@ -1,3 +1,5 @@
 .idea
 OTUS.iml
 target
+.log
+*.log
