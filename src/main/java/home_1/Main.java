@@ -1,3 +1,5 @@
+package home_1;
+
 import home_1.luckyTic.LuckyTicketsImpl;
 import utils.FileReader;
 
