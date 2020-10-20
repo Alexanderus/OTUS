@@ -11,5 +11,6 @@ public class TestDataPatches {
     public static final String KNIGHT_MOVES_TEST_DATA = "HomeWork" + File.separator + "3" + File.separator + "knight";
     public static final String FEN_TEST_DATA = "HomeWork" + File.separator + "3" + File.separator + "fen";
     public static final String TRUCKERS_TEST_DATA = "HomeWork" + File.separator + "3" + File.separator + "truckers";
+    public static final String HW_6_TEST_DATA_FOLDER = "HomeWork" + File.separator + "6";
 
 }
