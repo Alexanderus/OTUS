@@ -24,8 +24,8 @@ public class TestsPriorityQueue {
         System.out.println(priorityQueue.size());
 
         for (int i = 0; i < 100; i++) {
-            Optional<Integer> test = priorityQueue.dequeue();
-            System.out.println("Result " + test.get());
+            Integer test = priorityQueue.dequeue();
+            System.out.println("Result " + test);
         }
 
     }
