@@ -15,5 +15,6 @@ public class TestDataPatches {
     public static final String SORTING_RANDOM_TEST_DATA = "HomeWork" + File.separator + "5" + File.separator + "random";
     public static final String SORTING_REVERS_TEST_DATA = "HomeWork" + File.separator + "5" + File.separator + "revers";
     public static final String SORTING_SORTED_TEST_DATA = "HomeWork" + File.separator + "5" + File.separator + "sorted";
+    public static final String HW_6_TEST_DATA_FOLDER = "HomeWork" + File.separator + "6";
 
 }
