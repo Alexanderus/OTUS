@@ -1,108 +1,93 @@
 package home_7.simple;
 
 import home_7.BST;
+import home_7.Node;
 
 public class SimpleBST implements BST {
     private Node root;
 
     @Override
+    public Node getRoot() {
+        return root;
+    }
+
+    @Override
     public void insert(int value) {
         if (this. root == null) {
-            this.root = new Node(value);
+            this.root = new SimpleNode(value);
         } else {
-            root.add(root, value);
+            insert(root, value);
         }
+    }
+
+    private Node insert(Node currentNode, int value) {
+        if (currentNode == null) {
+            return new SimpleNode(value);
+        }
+        if (currentNode.getValue() < value) {
+            currentNode.setRightChild(insert(currentNode.getRightChild(), value));
+        }
+        if (value < currentNode.getValue()) {
+            currentNode.setLeftChild(insert(currentNode.getLeftChild(), value));
+        }
+        return currentNode;
     }
 
     @Override
     public boolean search(int value) {
-        if (this.root == null) {
+        return this.search(root, value);
+    }
+
+
+    private boolean search(Node currentNode, int value) {
+        if (currentNode == null) {
             return false;
         }
-        return this.root.has(root, value);
+
+        if (currentNode.getValue() == value) {
+            return true;
+        }
+
+        return currentNode.getValue() < value ?
+                this.search(currentNode.getLeftChild(), value) :
+                this.search(currentNode.getRightChild(), value);
     }
 
     @Override
     public void remove(int value) {
-        if (root != null) {
-            root = root.delete(root, value);
-        }
+        delete(root, value);
     }
 
-    class Node {
-        private int value;
-        private Node leftChild;
-        private Node rightChild;
-
-        private Node() {
-
+    private Node delete(Node currentNode, int value) {
+        if (currentNode == null) {
+            return null;
         }
-
-        private Node(int value) {
-            this.value = value;
-            this.leftChild = null;
-            this.rightChild = null;
-        }
-
-        private Node add(Node currentNode, int value) {
-            if (currentNode == null) {
-                return new Node(value);
-            }
-
-            if (this.value < value) {
-                leftChild.add(currentNode, value);
-            }
-            if (value < this.value) {
-                rightChild.add(currentNode, value);
-            }
-            return currentNode;
-        }
-
-        private boolean has(Node currentNode, int value) {
-            if (currentNode == null) {
-                return false;
-            }
-
-            if (currentNode.value == value) {
-                return true;
-            }
-
-            return currentNode.value < value ?
-                    currentNode.leftChild.has(currentNode.leftChild, value) :
-                    currentNode.rightChild.has(currentNode.rightChild, value);
-        }
-
-        private Node delete(Node currentNode, int value) {
-            if (currentNode == null) {
+        if (currentNode.getValue() == value) {
+            if (currentNode.getLeftChild() == null && currentNode.getRightChild() == null) {
                 return null;
             }
-            if (currentNode.value == value) {
-                if (currentNode.leftChild == null && currentNode.rightChild == null) {
-                    return null;
-                }
-                if (currentNode.leftChild == null) {
-                    return currentNode.rightChild;
-                }
-                if (currentNode.rightChild == null) {
-                    return currentNode.leftChild;
-                }
-                int maxInLeftSubTree = getHighestInSubTree(currentNode.leftChild);
-                currentNode.value = maxInLeftSubTree;
-                currentNode.leftChild = currentNode.delete(currentNode.leftChild, maxInLeftSubTree);
-                return currentNode;
+            if (currentNode.getLeftChild() == null) {
+                return currentNode.getRightChild();
             }
-            if (currentNode.value < value && currentNode.leftChild != null) {
-                currentNode.leftChild = currentNode.leftChild.delete(currentNode.leftChild, value);
+            if (currentNode.getRightChild() == null) {
+                return currentNode.getLeftChild();
             }
-            if (currentNode.rightChild != null) {
-                currentNode.rightChild = currentNode.rightChild.delete(currentNode.rightChild, value);
-            }
+            int highestInSubTreeValue = getHighestInSubTreeValue(currentNode.getRightChild());
+            currentNode.setValue(highestInSubTreeValue);
+            currentNode.setRightChild(this.delete(currentNode.getRightChild(), highestInSubTreeValue));
             return currentNode;
         }
-
-        private int getHighestInSubTree(Node node) {
-            return node.rightChild == null ? node.value : getHighestInSubTree(node.rightChild);
+        if (value < currentNode.getValue()) {
+            currentNode.setLeftChild(this.delete(currentNode.getLeftChild(), value));
         }
+        if (currentNode.getValue() < value) {
+            currentNode.setRightChild(this.delete(currentNode.getRightChild(), value));
+        }
+        return currentNode;
+    }
 
+    private int getHighestInSubTreeValue(Node node) {
+        return node.getRightChild() == null ? node.getValue()
+                : getHighestInSubTreeValue(node.getRightChild());
     }
 }
